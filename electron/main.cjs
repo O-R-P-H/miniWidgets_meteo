@@ -15,12 +15,10 @@ app.whenReady().then(() => {
     const isDev = !app.isPackaged;
 
     if (isDev) {
-        mainWindow.webContents.openDevTools()
         mainWindow.loadURL('http://localhost:5173');
     } else {
         const indexPath = path.join(__dirname, '..', 'dist', 'index.html');
         console.log('Loading File:', indexPath);
-        mainWindow.webContents.openDevTools()
         mainWindow.loadFile(indexPath);
     }
 

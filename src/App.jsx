@@ -1,35 +1,45 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState, useEffect } from 'react';
+import { getWeatherApi } from "@/api/getWeatherApi.js";
 
-function App() {
-  const [count, setCount] = useState(0)
+const App = () => {
+    const [weatherData, setWeatherData] = useState(null);
+    const [city, setCity] = useState('Нижний Новгород');  // Можно задать город по умолчанию
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    useEffect(() => {
+        const fetchWeather = async () => {
+            try {
+                console.log("Fetching weather for city:", city);
+                const data = await getWeatherApi(city);
+                console.log("Ответ:", data);
+                setWeatherData(data);
+            } catch (error) {
+                console.error('Ошибка при получении погоды:', error);
+            }
+        };
 
-export default App
+        fetchWeather();
+    }, [city]);
+
+    const handleCityChange = (event) => {
+        const newCity = event.target.value;
+        console.log("City input changed to:", newCity);
+        setCity(newCity);
+    };
+
+    return (
+        <div>
+            <h1>Погода в {city}</h1>
+            <input type="text" value={city} onChange={handleCityChange} placeholder="Введите город" />
+            {weatherData ? (
+                <div>
+                    <p>Температура: {weatherData.current.temp_c}°C</p>
+                    <p>Условия: {weatherData.current.condition.text}</p>
+                </div>
+            ) : (
+                <p>Загрузка...</p>
+            )}
+        </div>
+    );
+};
+
+export default App;
