@@ -8,6 +8,7 @@ html, body {
   justify-content: center;
   align-items: center;
   background: transparent;
+  border: none;
   border-radius: 30px;
 }
 
@@ -15,8 +16,8 @@ html, body {
   width: 240px;
   height: 240px;
   border-radius: 20px;
-  background: linear-gradient(135deg, #a1c4fd, #c2e9fb);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  background: rgb(193,223,229);
+  background: linear-gradient(180deg, rgba(193,223,229,1) 0%, rgba(105,105,105,1) 75%, rgba(52,52,52,1) 100%);
   display: flex;
   flex-direction: column;
   align-items: center;
