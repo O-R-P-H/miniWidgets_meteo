@@ -5,8 +5,11 @@ let mainWindow;
 
 app.whenReady().then(() => {
     mainWindow = new BrowserWindow({
-        width: 800,
-        height: 600,
+        width: 240,
+        height: 240,
+        frame:false,
+        resizable: false,
+        transparent:true,
         webPreferences: {
             nodeIntegration: false,
         }
